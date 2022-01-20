@@ -12,10 +12,10 @@ defmodule NflRushing.Repo.Migrations.CreatePlayerRushings do
       add :yards_per_att, :float
       add :yards_per_game, :float
       add :total_touchdowns, :integer
-      add :longest_rush, :string
+      add :longest_rush, :integer
       add :longest_rush_td, :boolean, default: false, null: false
       add :first_downs, :integer
-      add :first_downs_pct, :integer
+      add :first_downs_pct, :float
       add :twenty_yards_plus, :integer
       add :forty_yards_plus, :integer
       add :fumbles, :integer
