@@ -5,8 +5,9 @@ defmodule NflRushingWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", NflRushingWeb do
+  scope "/api/v1", NflRushingWeb.Api.V1 do
     pipe_through :api
+    get "/player_rushings", PlayerController, :index
   end
 
   # Enables LiveDashboard only for development
