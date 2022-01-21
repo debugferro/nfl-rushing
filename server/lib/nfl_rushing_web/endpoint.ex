@@ -39,6 +39,7 @@ defmodule NflRushingWeb.Endpoint do
 
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
+  plug Corsica, origins: ["http://localhost:3000", "http://localhost:3001"]
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
