@@ -8,6 +8,7 @@ defmodule NflRushingWeb.Router do
   scope "/api/v1", NflRushingWeb.Api.V1 do
     pipe_through :api
     get "/player_rushings", PlayerController, :index
+    get "/player_rushings/download_csv", PlayerController, :download_csv
   end
 
   # Enables LiveDashboard only for development
