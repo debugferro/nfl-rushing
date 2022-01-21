@@ -7,6 +7,11 @@ defmodule NflRushing.Player do
   alias NflRushing.Repo
   alias NflRushing.Player.{Rushing, SortingError}
 
+  def get_all() do
+    Rushing
+    |> Repo.all
+  end
+
   def get_rushing_ordered_by(sort_args) do
     Rushing
     |> add_order_by_queries(sort_args)
@@ -18,6 +23,14 @@ defmodule NflRushing.Player do
     from(pr in Rushing ,
     where: fragment("? % ?", pr.player, ^searched_name),
     order_by: fragment("similarity(?, ?) DESC", pr.player, ^searched_name))
+    |> Repo.all
+  end
+
+  def search_by_name(searched_name, sort_args) do
+    from(pr in Rushing ,
+    where: fragment("? % ?", pr.player, ^searched_name))
+    |> add_order_by_queries(sort_args)
+    |> IO.inspect(label: "QUERY")
     |> Repo.all
   end
 
@@ -45,6 +58,6 @@ defmodule NflRushing.Player do
 
   defp field_to_atom("total_yards"), do: :total_yards
   defp field_to_atom("longest_rush"), do: :longest_rush
-  defp field_to_atom("total_tds"), do: :total_touchdowns
+  defp field_to_atom("total_touchdowns"), do: :total_touchdowns
   defp field_to_atom(_any), do: raise(SortingError)
 end
