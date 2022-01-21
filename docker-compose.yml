@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: nfl_rushing_dev
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
   server:
     build:
       context: ./server
@@ -15,14 +23,22 @@ services:
       - 4000:4000
     depends_on:
       - postgres
-    command: sh -c "mix ecto.setup && mix phx.server"
+    command: sh -c "cd /server && mix deps.get && mix ecto.reset && mix phx.server"
+    tty: true
+    stdin_open: true
     volumes:
-      - .:/app
-  postgres:
-    image: postgres:13-alpine
+      - ./server:/server
+  client:
+    build:
+      context: ./client
+      args:
+        REACT_APP_API_DEV: http://127.0.0.1:4000/
+    command: sh -c "cd /client && npm start"
+    volumes:
+      - ./client/node_modules
+      - ./client:/client
+    ports:
+      - 3001:3000
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: nfl_rushing_dev
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - CHOKIDAR_USEPOLLING=true
+      - WDS_SOCKET_PORT=0
