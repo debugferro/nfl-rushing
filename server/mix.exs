@@ -44,9 +44,8 @@ defmodule NflRushing.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:nimble_csv, "~> 1.1"},
-      {:mimic, "~> 1.5", only: :test},
       {:corsica, "~> 1.0"},
-      {:benchee, "~> 1.0"}
+      {:faker, "~> 0.17"}
     ]
   end
 
@@ -61,7 +60,7 @@ defmodule NflRushing.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run " <> File.cwd! <> "/priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "run priv/repo/load_test_seeds.exs", "test"]
     ]
   end
 end
