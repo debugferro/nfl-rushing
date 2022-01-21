@@ -2,6 +2,27 @@ defmodule NflRushing.Player.Rushing do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @player_rushing_columns [
+    :player,
+    :team,
+    :pos,
+    :attempts_avg,
+    :attempts,
+    :total_yards,
+    :yards_per_att,
+    :yards_per_game,
+    :total_touchdowns,
+    :longest_rush,
+    :longest_rush_td,
+    :first_downs,
+    :first_downs_pct,
+    :twenty_yards_plus,
+    :forty_yards_plus,
+    :fumbles
+  ]
+
+  @derive {Jason.Encoder, only: @player_rushing_columns}
+
   schema "player_rushings" do
     field(:attempts, :integer)
     field(:attempts_avg, :float)
