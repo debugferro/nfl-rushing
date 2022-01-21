@@ -1,12 +1,17 @@
 defmodule NflRushingWeb.Api.V1.PlayerView do
   use NflRushingWeb, :view
 
+  def render("rushings.json", %{rushings: {columns, rows}}) do
+    %{columns: columns, rows: rows}
+  end
+
   def render("rushings.json", %{rushings: rushings}) do
     %{rushings: render_many(rushings, NflRushingWeb.Api.V1.PlayerView, "rushing.json", as: :rushing)}
   end
 
   def render("rushing.json", %{rushing: rushing}) do
     %{
+      "id" => rushing.id,
       "player" => rushing.player,
       "team" => rushing.team,
       "pos" => rushing.pos,
