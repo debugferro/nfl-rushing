@@ -34,6 +34,9 @@ defmodule NflRushing.Player do
     |> Repo.all
   end
 
+  def parse_longest_rush_td(false), do: "No"
+  def parse_longest_rush_td(true), do: "Yes"
+
   defp add_order_by_queries(query, %{"asc" => asc_fields, "desc" => desc_fields}) do
     add_order_by_query(query, asc_fields, :asc)
     |> add_order_by_query(desc_fields, :desc)
