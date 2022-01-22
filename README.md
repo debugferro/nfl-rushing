@@ -53,5 +53,125 @@ We will evaluate you on your ability to solve the problem defined in the require
 ### Help
 If you have any questions regarding requirements, do not hesitate to email your contact at theScore for clarification.
 
+<hr>
+
+## Stack
+
+- `Elixir`
+- `Phoenix Framework`
+- `PostgreSQL`
+- `Docker`
+- `ReactJS`
+
 ### Installation and running this solution
-... TODO
+
+To install and run this solution, you need to build and start Docker containers:
+
+```bash
+docker-compose up --build
+```
+
+This will start a container for the server, database, and client.
+After successfully starting, you can access the API through: http://127.0.0.1:4000/api/v1, and the client through http://localhost:3001/
+More details in the following sections.
+
+To stop containers from keep running, type the following command:
+
+```bash
+docker-compose down
+```
+### CLIENT
+
+You can access the client through http://localhost:3001/, where you can sort the data, or download it.
+#### 🔧 FEATURES:
+ - Display data in a table
+ - Sort data by `Total Rushing Yards`, `Total Rushing Touchdowns` and `Longest Rush`
+ - Export data in `.CSV`
+ - Search by player name
+
+### API ENDPOINTS
+
+You can access the API through: http://127.0.0.1:4000/api/v1
+
+### 💻 /api/v1/player_rushings
+
+Get all the Player Rushings.
+
+#### METHOD `GET`
+
+#### URL PARAMS 
+
+#### 📍 `sort_by[${sort_mode}][]=${field}`
+
+Sort the results, in a descendant or ascendant order, by any of the following fields:  `total_yards, longest_rush and total_touchdowns`
+
+| Name | field  |
+|---------------------|-----------------|
+| Total Rushing Yards | total_yards |
+| Longest Rush | longest_rush |
+| Rushing Touchdowns | total_touchdowns |
+
+Sort Mode values:
+
+|Type of Sort| sort_mode |
+|------------|-------|
+| Ascendant  | asc   |
+| Descendant | desc  |
+
+❗ Invalid values will result in a `404 Bad Request` response.
+
+Successful examples: 
+
+> `/api/v1/player_rushings?sort_by[asc][]=total_yards&sort_by[desc][]=longest_rush`
+
+> `/api/v1/player_rushings?sort_by[desc][]=total_touchdowns`
+
+
+#### 📍 `q=${string_search_term}`
+
+Search for player names. Data will be ordered by similarity with your search term. `sort_by` query overrides the similarity order.
+
+Successful examples: 
+
+> `/api/v1/player_rushings?q=Brian`
+
+> `/api/v1/player_rushings?sort_by[desc][]=total_yards&q=Rachel`
+
+### 💻 /api/v1/player_rushings/download_csv
+
+Get all the player rushings data and download as a `.CSV` file.
+
+#### METHOD `GET`
+
+#### URL PARAMS 
+
+
+#### 📍`sort_by[${sort_mode}][]=${field}`
+
+Sort the results, in a descendant or ascendant order, by any of the following fields:  `total_yards, longest_rush and total_touchdowns`
+
+✅ This endpoint query operates in the same way as the previous endpoint. <br>
+❗ Invalid values will result in a `404 Bad Request` response.
+
+Successful examples: 
+
+> `/api/v1/player_rushings/download_csv?sort_by[asc][]=total_yards&sort_by[desc][]=longest_rush`
+
+> `/api/v1/player_rushings/download_csv?sort_by[desc][]=total_touchdowns`
+
+
+#### 📍 `q=${string_search_term}`
+
+Search for player names. Data will be ordered by similarity with your search term. `sort_by` query overrides the similarity order.
+
+Successful examples: 
+
+> `/api/v1/player_rushings/download_csv?q=Brian`
+
+> `/api/v1/player_rushings/download_csv?sort_by[desc][]=total_yards&q=Rachel`
+
+### DATABASE SCHEMA
+
+<p align="center">
+    <img src="https://i.imgur.com/2zYdLt5.png">
+</p>
