@@ -77,7 +77,7 @@ npm install
 ```
 3. Go back to the main folder
 ```
-cd ...
+cd ..
 ```
 4. Now, to run this solution, you need to build and start the Docker containers. Run the following command in the terminal:
 ```bash
