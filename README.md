@@ -65,8 +65,21 @@ If you have any questions regarding requirements, do not hesitate to email your 
 
 ### Installation and running this solution
 
-To install and run this solution, you need to build and start Docker containers:
-
+1. Git clone this repository and open the project's folder
+```bash
+git clone git@github.com:debugferro/nfl-rushing.git
+cd nfl-rushing
+```
+2. Navigate to the client folder and run `npm install`
+```bash
+cd client
+npm install
+```
+3. Go back to the main folder
+```
+cd ...
+```
+4. Now, to run this solution, you need to build and start the Docker containers. Run the following command in the terminal:
 ```bash
 docker-compose up --build
 ```
