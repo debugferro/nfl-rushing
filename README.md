@@ -80,6 +80,8 @@ To stop containers from keep running, type the following command:
 ```bash
 docker-compose down
 ```
+All the sort, search, and file generation happens on the server side.
+
 ### CLIENT
 
 You can access the client through http://localhost:3001/, where you can sort the data, or download it.
