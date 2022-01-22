@@ -40,7 +40,7 @@ defmodule NflRushing.Player.CSVBuilder do
           data.yards_per_game,
           data.total_touchdowns,
           data.longest_rush,
-          parse_longest_rush_td(data.longest_rush_td),
+          data.longest_rush_td |> Player.parse_longest_rush_td(),
           data.first_downs,
           data.first_downs_pct,
           data.twenty_yards_plus,
@@ -51,9 +51,6 @@ defmodule NflRushing.Player.CSVBuilder do
 
     [@fields_name] ++ values
   end
-
-  defp parse_longest_rush_td(false), do: "No"
-  defp parse_longest_rush_td(true), do: "Yes"
 
   defp write_file(csv_data) do
     NimbleCSV.RFC4180.dump_to_iodata(csv_data)
