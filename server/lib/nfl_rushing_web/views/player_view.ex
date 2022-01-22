@@ -1,5 +1,6 @@
 defmodule NflRushingWeb.Api.V1.PlayerView do
   use NflRushingWeb, :view
+  alias NflRushing.Player
 
   def render("rushings.json", %{rushings: {columns, rows}}) do
     %{columns: columns, rows: rows}
@@ -22,7 +23,7 @@ defmodule NflRushingWeb.Api.V1.PlayerView do
       "yards_per_game" => rushing.yards_per_game,
       "total_touchdowns" => rushing.total_touchdowns,
       "longest_rush" => rushing.longest_rush,
-      "longest_rush_td" => rushing.longest_rush_td,
+      "longest_rush_td" => rushing.longest_rush_td |> Player.parse_longest_rush_td(),
       "first_downs" => rushing.first_downs,
       "first_downs_pct" => rushing.first_downs_pct,
       "twenty_yards_plus" => rushing.twenty_yards_plus,
